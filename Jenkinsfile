@@ -36,7 +36,7 @@ pipeline {
     }
     post {
         success {
-            slackSend channel: '#gideon_ip1'
+            slackSend channel: '#gideon_ip1',
                       color: 'good',
                       message: "${env.JOB_NAME}: Build ${env.BUILD_NUMBER} deployed successfully. Visit ${RENDER_URL}"
         }
