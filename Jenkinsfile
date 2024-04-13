@@ -3,6 +3,9 @@ pipeline {
     tools {
         nodejs 'nodejs'
     }
+    environment {
+        RENDER_URL = 'https://gallery3001.onrender.com/'
+    }
 
     stages {
         stage('Clone Code') {
@@ -31,4 +34,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            slackSend channel: '#gideon_ip1'
+                      color: 'good',
+                      message: "${env.JOB_NAME}: Build ${env.BUILD_NUMBER} deployed successfully. Visit ${RENDER_URL}"
+        }
+    }
+
 }
