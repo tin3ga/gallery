@@ -18,5 +18,17 @@ pipeline {
                 sh 'npm install'
             }
         }
+         stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'npm test'
+            }
+        }
+         stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                sh 'curl https://api.render.com/deploy/srv-cod9r88l5elc73fjjiug?key=MHsesUhfg5A'
+            }
+        }
     }
 }
