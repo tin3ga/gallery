@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         RENDER_URL = 'https://gallery3001.onrender.com/'
+        
     }
 
     stages {
@@ -26,6 +27,13 @@ pipeline {
                 echo 'Running tests...'
                 sh 'npm test'
             }
+            
+         post {
+                failure {
+                    echo 'tests failed..'
+                    mail body: "$JOB_NAME: Build $BUILD_NUMBER failed tests!", subject: 'Tests Failed!', to: 'gideon.tinega@student.moringaschool.com'
+                }
+            }
         }
          stage('Deploy') {
             steps {
@@ -41,5 +49,4 @@ pipeline {
                       message: "${env.JOB_NAME}: Build ${env.BUILD_NUMBER} deployed successfully. Visit ${RENDER_URL}"
         }
     }
-
 }
